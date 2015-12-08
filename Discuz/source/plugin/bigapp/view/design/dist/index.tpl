@@ -21,7 +21,7 @@ charset='utf-8'
 <%js_script%>
 -->
 <script charset='utf-8' src="<%source_path%>scripts/vendor.769e44a5.js"></script>
-<script charset='utf-8' src="<%source_path%>scripts/scripts.f67a1da3.js"></script>
+<script charset='utf-8' src="<%source_path%>scripts/scripts.17b7dc20.js"></script>
 <script charset='utf-8' src="<%source_path%>scripts/template.8971778a.js"></script>
 </body>
 </html>

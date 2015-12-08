@@ -692,6 +692,7 @@ class BigAppAPI {
 		}
 		if(!empty($GLOBALS['activity'])) {
 			$variable['special_activity'] = $GLOBALS['activity'];
+			$variable['special_activity']['ufield']['extfield'] = array_values($variable['special_activity']['ufield']['extfield']);
 			$variable['special_activity']['allapplynum'] = $GLOBALS['allapplynum'];
 			$variable['special_activity']['aboutmembers'] = $GLOBALS['aboutmembers'];
 			$variable['special_activity']['starttimefrom'] = str_replace('&nbsp;', ' ' , $variable['special_activity']['starttimefrom']);
@@ -728,6 +729,18 @@ class BigAppAPI {
 			); 
 			foreach ($tmp as $v){
 				if(preg_match('/^field[0-9]+$/', $v['fieldid'])){
+					if(isset($GLOBALS['ufielddata']['userfield'][$v['fieldid']]) && $v['formtype'] != 'file'){
+						$v['default'] = $GLOBALS['ufielddata']['userfield'][$v['fieldid']];
+						if($v['formtype'] == 'checkbox' || $v['formtype'] == 'list'){
+							$v['default'] = explode("\n", $v['default']);
+						}
+						if('select' == $v['formtype']){
+							$v['default'] = (isset($v['choices'][$v['default']]) ? $v['choices'][$v['default']] : $v['default']);
+						}
+						if('datepicker' == $v['formtype']){
+							$v['default'] = '';
+						}
+					}
 					$variable['special_activity']['joinfield'][] = $v;
 					continue;
 				}
@@ -735,25 +748,62 @@ class BigAppAPI {
 					if('birthcity' === $v['fieldid']){
 						$extField['fieldid'] = 'birthprovince';
 						$extField['title'] = '__DONT_DICONV_TO_UTF8___出生省';
+						if(isset($GLOBALS['ufielddata']['userfield'][$extField['fieldid']])){
+							$extField['default'] = $GLOBALS['ufielddata']['userfield'][$extField['fieldid']];
+						}
 						$variable['special_activity']['joinfield'][] = $extField;
 					}
 					if('residecity' === $v['fieldid']){
 						$extField['fieldid'] = 'resideprovince';
 						$extField['title'] = '__DONT_DICONV_TO_UTF8___居住省';
+						if(isset($GLOBALS['ufielddata']['userfield'][$extField['fieldid']])){
+							$extField['default'] = $GLOBALS['ufielddata']['userfield'][$extField['fieldid']];
+						}
 						$variable['special_activity']['joinfield'][] = $extField;
+					}
+					if(isset($GLOBALS['ufielddata']['userfield'][$v['fieldid']]) && $v['formtype'] != 'file'){
+						$actfield[$v['fieldid']]['default'] = $GLOBALS['ufielddata']['userfield'][$v['fieldid']];
+						if($actfield[$v['fieldid']]['formtype'] == 'checkbox' || $actfield[$v['fieldid']]['formtype'] == 'list'){
+							$actfield[$v['fieldid']]['default'] = explode("\n", $actfield[$v['fieldid']]['default']);
+						}
+						if('select' == $actfield[$v['fieldid']]['formtype']){
+							$actfield[$v['fieldid']]['default'] = (isset($actfield[$v['fieldid']]['choices'][$actfield[$v['fieldid']]['default']]) ? $actfield[$v['fieldid']]['choices'][$actfield[$v['fieldid']]['default']] : $actfield[$v['fieldid']]['default']);
+						}
+						if('datepicker' == $actfield[$v['fieldid']]['formtype']){
+							$actfield[$v['fieldid']]['default'] = '';
+						}
 					}
 					$variable['special_activity']['joinfield'][] = $actfield[$v['fieldid']];
 					if('residecity' === $v['fieldid']){
 						$extField['fieldid'] = 'residedist';	
 						$extField['title'] = '__DONT_DICONV_TO_UTF8___居住区';
+						if(isset($GLOBALS['ufielddata']['userfield'][$extField['fieldid']])){
+							$extField['default'] = $GLOBALS['ufielddata']['userfield'][$extField['fieldid']];
+						}
 						$variable['special_activity']['joinfield'][] = $extField;	
 						$extField['fieldid'] = 'residecommunity';	
 						$extField['title'] = '__DONT_DICONV_TO_UTF8___居住小区';
+						if(isset($GLOBALS['ufielddata']['userfield'][$extField['fieldid']])){
+							$extField['default'] = $GLOBALS['ufielddata']['userfield'][$extField['fieldid']];
+						}
 						$variable['special_activity']['joinfield'][] = $extField;	
 					}
 					continue;
+				}else{
+					if(isset($GLOBALS['ufielddata']['userfield'][$v['fieldid']]) && $v['formtype'] != 'file'){
+						$v['default'] = $GLOBALS['ufielddata']['userfield'][$v['fieldid']];
+						if($v['formtype'] == 'checkbox' || $v['formtype'] == 'list'){
+							$v['default'] = explode("\n", $v['default']);
+						}
+						if('select' == $v['formtype']){
+							$v['default'] = (isset($v['choices'][$v['default']]) ? $v['choices'][$v['default']] : $v['default']);
+						}
+						if('datepicker' == $v['formtype']){
+							$v['default'] = '';
+						}
+					}
+					$variable['special_activity']['joinfield'][] = $v;
 				}
-				$variable['special_activity']['joinfield'][] = $v;
 			}
 			if($post['invisible'] == 0 && ($_G['forum_thread']['authorid'] == $_G['uid'] || (in_array($_G['group']['radminid'], array(1, 2)) && $_G['group']['alloweditactivity']) || ( $_G['group']['radminid'] == 3 && $_G['forum']['ismoderator'] && $_G['group']['alloweditactivity']))){
 				$variable['special_activity']['show_admin'] = 1;

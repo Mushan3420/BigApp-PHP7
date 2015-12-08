@@ -107,7 +107,7 @@ class BigAppAPI {
 		}
 		$variable = array(
 			'forum' => bigapp_core::getvalues($_G['forum'], array('fid', 'fup', 'name', 
-					'threads', 'posts', 'rules', 'autoclose', 'password', 'todayposts', 'yesterdayposts', 'moderators')),
+					'threads', 'posts', 'rules', 'autoclose', 'password', 'todayposts', 'yesterdayposts', 'moderators', 'allowspecialonly')),
 			'group' => bigapp_core::getvalues($_G['group'], array('groupid', 'grouptitle')),
 			'open_image_mode' => 1,
 			'forum_threadlist' => bigapp_core::getvalues(array_values($_G['forum_threadlist']), array('/^\d+$/'), 

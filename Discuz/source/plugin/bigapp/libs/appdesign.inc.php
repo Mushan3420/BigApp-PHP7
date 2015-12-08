@@ -16,6 +16,18 @@ require_once FILE_PATH . '/bigappjson.class.php';
 
 class AppDesign {
 	
+	
+	public static function isHandInstallIyzIndex() {
+		$ret = false;
+		$filename = DISCUZ_ROOT.'./api/mobile/iyz_index.php';
+		
+		if(file_exists($filename)) {
+			$ret = true;
+		}
+		
+		return $ret;
+	}
+	
 	public static function getDefaultInfo() {
 		$initNavigations = array(
 			"selected" => "0",
@@ -570,7 +582,11 @@ class AppDesign {
 								$title_cfg['title_button_type'] = $view_id;
 							}
 							
-							$title_cfg['view_link'] = $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=1&module=viewinfo&vid=" . $view_id;
+							$siteurl = substr($_G["siteurl"],0, -11);
+							$title_cfg['view_link'] = $siteurl."source/plugin/bigapp/iyz_index.php?iyzmobile=1&iyzversion=1&module=viewinfo&vid=" . $view_id;
+							if(AppDesign::isHandInstallIyzIndex()) {
+								$title_cfg['view_link'] = $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=1&module=viewinfo&vid=" . $view_id;
+							}
 							
 							//if(isset($title_cfg['view_type'])) unset($title_cfg['view_type']);
 							if(isset($title_cfg['$$hashKey'])) unset($title_cfg['$$hashKey']);
@@ -640,7 +656,12 @@ class AppDesign {
 								$title_cfg['title_button_type'] = $view_id;
 							}
 							
-							$title_cfg['view_link'] = $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=1&module=viewinfo&vid=" . $view_id;
+							$siteurl = substr($_G["siteurl"],0, -11);
+							$title_cfg['view_link'] = $siteurl."source/plugin/bigapp/iyz_index.php?iyzmobile=1&iyzversion=1&module=viewinfo&vid=" . $view_id;
+							if(AppDesign::isHandInstallIyzIndex()) {
+								$title_cfg['view_link'] = $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=1&module=viewinfo&vid=" . $view_id;
+							}
+	
 							if(isset($title_cfg['view_type'])) unset($title_cfg['view_type']);
 							if(isset($title_cfg['$$hashKey'])) unset($title_cfg['$$hashKey']);
 							
@@ -828,7 +849,12 @@ class AppDesign {
 				
 				if('1' === $newsetting['type']) {
 					//内容型
-					$rmlink =  $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=1&module=contentthread";
+					$siteurl = substr($_G["siteurl"],0, -11);
+					$rmlink =  $siteurl . "source/plugin/bigapp/iyz_index.php?iyzmobile=1&iyzversion=1&module=contentthread";
+					if(AppDesign::isHandInstallIyzIndex()) {
+						$rmlink =  $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=1&module=contentthread";
+					}
+	
 					$content_setting = base64_encode(json_encode($setting['data_src_cfg']['content_setting']));
 					
 					$data_link = $rmlink . "&buttonid=".$button_id."&navid=".$navi_id."&style=".$pic_mode."&setting=".$content_setting;
@@ -854,7 +880,11 @@ class AppDesign {
 					}
 					array_multisort($newArr , $newrecommsetting);
 					
-					$rmlink =  $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=2&module=indexthread";
+					$siteurl = substr($_G["siteurl"],0, -11);
+					$rmlink =  $siteurl . "source/plugin/bigapp/iyz_index.php?iyzmobile=1&iyzversion=2&module=indexthread";
+					if(AppDesign::isHandInstallIyzIndex()) {
+						$rmlink =  $_G['siteurl']."iyz_index.php?iyzmobile=1&iyzversion=2&module=indexthread";
+					}
 					
 					foreach($newrecommsetting as &$setting) {
 						//var_dump($setting) or die();

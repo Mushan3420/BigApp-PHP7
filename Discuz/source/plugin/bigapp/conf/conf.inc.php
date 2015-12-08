@@ -149,7 +149,7 @@ if(BIGAPP_DEV){
 												array('id'=>"5","title"=>"bigapp5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/2/6/1/2610b00cd55a65d3580037c910f37e06.png","url"=>"http://192.168.180.23:8080/discuz/forum.php?mod=forumdisplay&fid=1","type"=>"3","pid"=>"3","order"=>"3","desc"=>"bigapp","status"=>"1"),
 												array('id'=>"6","title"=>"bigapp5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/3/2/7/327bef8b10441329007fb9dcc956be9f.png","url"=>"http://192.168.180.23:8080/discuz/forum.php?mod=forumdisplay&fid=1","type"=>"3","pid"=>"3","order"=>"3","desc"=>"bigapp","status"=>"1"),
 												array('id'=>"7","title"=>"bigapp5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/b/1/8/b184780602b05fd6df357984890b11f2.png","url"=>"http://192.168.180.23:8080/discuz/forum.php?mod=forumdisplay&fid=1","type"=>"3","pid"=>"3","order"=>"3","desc"=>"bigapp","status"=>"1"),
-												array('id'=>"8","title"=>"bigapp5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/c/a/1/ca107b8c4d6edd90272.1.0148aeb1e7.png","url"=>"http://192.168.180.23:8080/discuz/forum.php?mod=forumdisplay&fid=1","type"=>"3","pid"=>"1","order"=>"3","desc"=>"bigapp","status"=>"1"),
+												array('id'=>"8","title"=>"bigapp5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/c/a/1/ca107b8c4d6edd90272.1.1148aeb1e7.png","url"=>"http://192.168.180.23:8080/discuz/forum.php?mod=forumdisplay&fid=1","type"=>"3","pid"=>"1","order"=>"3","desc"=>"bigapp","status"=>"1"),
 												array('id'=>"9","title"=>"bigapp5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/7/6/0/76059c5c50fc81dcc32b9c6fbd722577.png","url"=>"http://192.168.180.23:8080/discuz/forum.php?mod=forumdisplay&fid=1","type"=>"3","pid"=>"1","order"=>"3","desc"=>"bigapp","status"=>"1"),
 										),
 								"func1"=>array(
@@ -162,7 +162,7 @@ if(BIGAPP_DEV){
 												array('id'=>"5","title"=>"热门区2","pic"=>"http://mobfile.youzu.com/Uploads_image/2/2/6/1/2610b00cd55a65d3580037c910f37e06.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"3","order"=>"2","desc"=>"bigapp","status"=>"1"),
 												array('id'=>"6","title"=>"热门区3","pic"=>"http://mobfile.youzu.com/Uploads_image/2/3/2/7/327bef8b10441329007fb9dcc956be9f.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"3","order"=>"3","desc"=>"bigapp","status"=>"1"),
 												array('id'=>"7","title"=>"热门区4","pic"=>"http://mobfile.youzu.com/Uploads_image/2/b/1/8/b184780602b05fd6df357984890b11f2.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"3","order"=>"4","desc"=>"bigapp","status"=>"1"),
-												array('id'=>"8","title"=>"热门区5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/c/a/1/ca107b8c4d6edd90272.1.0148aeb1e7.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"1","order"=>"5","desc"=>"bigapp","status"=>"1"),
+												array('id'=>"8","title"=>"热门区5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/c/a/1/ca107b8c4d6edd90272.1.1148aeb1e7.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"1","order"=>"5","desc"=>"bigapp","status"=>"1"),
 												array('id'=>"9","title"=>"热门区6","pic"=>"http://mobfile.youzu.com/Uploads_image/2/7/6/0/76059c5c50fc81dcc32b9c6fbd722577.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"1","order"=>"6","desc"=>"bigapp","status"=>"1"),
 										),
 								"switch0"=>array("switch"=>1),
@@ -203,7 +203,7 @@ if(BIGAPP_DEV){
 				array('id'=>"5","title"=>"热门区2","pic"=>"http://mobfile.youzu.com/Uploads_image/2/2/6/1/2610b00cd55a65d3580037c910f37e06.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"3","order"=>"2","flag"=>"1","desc"=>"bigapp"),
 				array('id'=>"6","title"=>"热门区3","pic"=>"http://mobfile.youzu.com/Uploads_image/2/3/2/7/327bef8b10441329007fb9dcc956be9f.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"3","order"=>"3","flag"=>"1","desc"=>"bigapp"),
 				array('id'=>"7","title"=>"热门区4","pic"=>"http://mobfile.youzu.com/Uploads_image/2/b/1/8/b184780602b05fd6df357984890b11f2.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"3","order"=>"4","flag"=>"1","desc"=>"bigapp"),
-				array('id'=>"8","title"=>"热门区5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/c/a/1/ca107b8c4d6edd90272.1.0148aeb1e7.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"1","order"=>"5","flag"=>"1","desc"=>"bigapp"),
+				array('id'=>"8","title"=>"热门区5","pic"=>"http://mobfile.youzu.com/Uploads_image/2/c/a/1/ca107b8c4d6edd90272.1.1148aeb1e7.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"1","order"=>"5","flag"=>"1","desc"=>"bigapp"),
 				array('id'=>"9","title"=>"热门区6","pic"=>"http://mobfile.youzu.com/Uploads_image/2/7/6/0/76059c5c50fc81dcc32b9c6fbd722577.png","url"=>"http://bigapp.mob.com/","type"=>"1","pid"=>"1","order"=>"6","flag"=>"1","desc"=>"bigapp"),
 			)
 		),

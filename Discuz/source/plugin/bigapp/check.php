@@ -18,7 +18,7 @@ $discuz->init();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 @include 'bigapp.class.php';
 require_once dirname(__FILE__) . '/libs/utils.inc.php';
-define("PLUGIN_INNER_VERSION", "8995");
+define("PLUGIN_INNER_VERSION", "9143");
 $mobilecheck = Utils::getCheckJson();
 if(isset($mobilecheck['plugin_info']['bigapp']['version'])) {
     $mobilecheck['plugin_info']['bigapp']['version'] .= ".".PLUGIN_INNER_VERSION;

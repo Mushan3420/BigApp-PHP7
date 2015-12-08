@@ -6,7 +6,7 @@ function getAppConfigure()
     $svalue = C::t('common_setting')->fetch("bigapp_appcfg_setting",false);
     $params = BIGAPPJSON::decode($svalue, true);
 
-    if(!empty($params)) {
+    if(empty($params)) {
         // 默认第三方登录都不开启
         $params["qq_login"]=0;
         $params["wechat_login"]=0;

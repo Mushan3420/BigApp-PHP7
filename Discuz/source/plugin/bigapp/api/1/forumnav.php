@@ -49,7 +49,7 @@ class BigAppAPI {
 		$expire = 5;
 		if(!isset($_G['cache'][$cacheKey]) || empty($_G['cache'][$cacheKey]) || TIMESTAMP - $_G['cache'][$cacheKey]['expiration'] > $expire){
 			//need update all forums from database
-			$sql = "SELECT f.fid, f.type, f.name, f.fup, f.status, f.threads, f.posts, f.todayposts, f.allowpostspecial, " .
+			$sql = "SELECT f.fid, f.type, f.name, f.fup, f.status, f.threads, f.posts, f.todayposts, f.allowpostspecial, f.allowspecialonly, " .
 					"ff.password, ff.redirect, ff.viewperm, ff.postperm, ff.threadtypes, ff.threadsorts, ff.icon, ff.description, ff.moderators FROM " . 
 					DB::table('forum_forum') . " f LEFT JOIN " . DB::table('forum_forumfield') . " ff USING(fid) WHERE f.status='1' ORDER BY f.type, f.displayorder";
 			$query = DB::query($sql);
@@ -123,7 +123,7 @@ class BigAppAPI {
 						}
 					}
 					$forums[] = bigapp_core::getvalues($forum, array('fid', 'type', 'name', 'fup', 'viewperm', 
-							'postperm', 'status', 'threadsorts', 'threadtypes', 'threadtypes_detail', 'icon', 'description', 'threads', 'allowpostspecial',
+							'postperm', 'status', 'threadsorts', 'threadtypes', 'threadtypes_detail', 'icon', 'description', 'threads', 'allowpostspecial', 'allowspecialonly', 
 							'posts', 'todayposts', 'moderators'));
 				}
 			}

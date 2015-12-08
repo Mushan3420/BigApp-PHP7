@@ -47,12 +47,22 @@ class ApiUtils
 	public static function getAttachPath($path)
 	{
 		$path = self::abstractPath($path);
+		
+		if(1 == preg_match('/^http\:\/\//', $path)) {
+			return $path;
+		}
+		
 		$regex = '/(album|category|common|forum|group|portal|profile|swfupload|temp)_/';
 		if(1 !== preg_match($regex, $path, $matches) || !isset($matches[1]) || empty($matches[1])){
 			return $path;
 		}
 		$type = $matches[1];
 		global $_G;
+		
+		if(1 == preg_match('/^http\:\/\//', $_G['setting']['attachurl'])) {
+			$path = $_G['setting']['attachurl']  . $type . '/' . $path;
+			return $path;
+		}
 		$path = self::getDzRoot() . $_G['setting']['attachurl']  . $type . '/' . $path;
 		return $path;
 	}
