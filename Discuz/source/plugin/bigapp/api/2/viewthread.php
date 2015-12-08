@@ -852,7 +852,7 @@ class BigAppAPI {
 	}
 		
 	function _findimg($string) {
-		return preg_replace('/(<img src=\")(.+?)(\".*?\>)/ise', "BigAppAPI::_parseimg('\\1', '\\2', '\\3')", $string);
+		return preg_replace_callback('/(<img src=\")(.+?)(\".*?\>)/is', function($matches) { return BigAppAPI::_parseimg($matches[1], $matches[2], $matches[3]); }, $string);
 	}
 
 	function _parseimg($before, $img, $after) {
