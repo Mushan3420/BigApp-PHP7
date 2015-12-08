@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../src/admin.css"/>
+    <link rel="stylesheet" href="../css/uu-style.css"/>
+    <script src="../src/script.js"></script>
+    <script src="../js/qr.js"></script>
+    <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/uploadfile.js"></script>
+    <script src="../js/uz-common.js"></script>
+</head>
+<body class="wp-admin wp-core-ui js  nav-menus-php auto-fold admin-bar branch-4-2 version-4-2-2 admin-color-fresh locale-zh-cn customize-support svg menu-max-depth-0">
+<div class="wrap control-section" id="wpbody-content">
+    <div id="uz">
+        <h2>插件名称</h2>
+        <ul class="subsubsub">
+            <li>插件版本号：V<span class="tpl-version"></span> |</li>
+            <li>最后更新日期：<span class="tpl-updatetime"></span> | </li>
+            <li><a href="javascript:;">前往站长中心</a> | </li>
+            <li><a href="javascript:;">退出</a></li>
+        </ul>
+        <div class="clear"></div>
+        <div id="menu-management-liquid">
+            <div id="menu-management">
+                <div class="menu-edit">
+
+                    <div class="nav-menu-header">
+                        <div class="major-publishing-actions">
+                            <h3>Banner设置</h3>
+
+                            <div class="publishing-action">
+                                <div class="button button-primary menu-add">新增Banner</div>
+                                <div class="button button-primary menu-save">保存设置</div>
+                            </div>
+                            <!-- END .publishing-action -->
+                        </div>
+                        <!-- END .major-publishing-actions -->
+                    </div>
+                    <!-- END .nav-menu-header -->
+
+                    <div id="post-body">
+                        <div id="post-body-content">
+                            <table class="wp-list-table widefat striped posts">
+                                <thead>
+                                <tr>
+                                    <th class="manage-column check-column">删除</th>
+                                    <th class="manage-column check-column">显示</th>
+                                    <th class="manage-column">名称</th>
+                                    <th class="manage-column">图片</th>
+                                    <th class="manage-column">链接URL</th>
+                                    <th class="manage-column">类别</th>
+                                    <th class="manage-column">排序</th>
+                                </tr>
+                                </thead>
+
+                                <tbody id="the-list">
+
+                                </tbody>
+
+                                <tfoot>
+                                <tr>
+                                    <th scope="col" class="check-column">
+                                        <input id="cb-select-all-1" type="checkbox">
+                                        <label class="" for="cb-select-all-1">全选</label>
+                                    </th>
+                                    <th>
+                                        <input id="cb-select-all-2" type="checkbox">
+                                        <label class="" for="cb-select-all-2">全选</label>
+                                    </th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </tfoot>
+
+                            </table>
+
+                        </div>
+                        <!-- /#post-body-content -->
+                    </div>
+                    <!-- /#post-body --><!-- /#update-nav-menu -->
+
+                    <div class="nav-menu-header">
+                        <div class="major-publishing-actions">
+                            <h3>Banner设置</h3>
+                            <div class="publishing-action">
+                                <div class="button button-primary menu-add">新增Banner</div>
+                                <div class="button button-primary menu-save">保存设置</div>
+                            </div>
+                            <!-- END .publishing-action -->
+                        </div>
+                        <!-- END .major-publishing-actions -->
+                    </div>
+                    <!-- END .nav-menu-header -->
+
+                </div>
+            </div>
+            <!-- /#menu-management -->
+        </div>
+
+    </div>
+</div>
+<script>
+    var v =
+    {
+        "data": {
+            "banner_list": [
+                {
+                    "name": "qiongye",
+                    "ID": 2,
+                    "type": "category",
+                    "img_url": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                    "link": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                    "rank": 9,
+                    "show": true
+                },
+                {
+                    "name": "qiong",
+                    "ID": 1,
+                    "type": "category",
+                    "img_url": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                    "link": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                    "rank": 10,
+                    "show": true
+                }
+            ],
+            "opt_url": "http:\/\/192.168.180.50:8089\/wordpress\/wp-admin\/plugins.php?page=bigapp_admin&action=menu"
+        },
+        "ajax_url": "http:\/\/192.168.180.50:8089\/wordpress\/?yz_app=1&api_route=admin_api&action=update_banner_conf"
+    };
+    jQuery(function () {
+        uz.setBanner(v.data, v.ajax_url);
+    });
+</script>
+</body>
+</html>

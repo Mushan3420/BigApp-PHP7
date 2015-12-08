@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="src/css/style.css"/>
+    <link rel="stylesheet" href="src/css/uz-style.css"/>
+    <script src="../../js/jquery.js"></script>
+    <script>
+        var jq = jQuery.noConflict();
+        var v = {
+            "setBanner": "http://192.168.180.47:8080/discuz/plugin.php?id=bigapp:homeapi&method=setBanner",
+            "getBanner": "http://192.168.180.47:8080/discuz/plugin.php?id=bigapp:homeapi&method=getBanner",
+            "setFunc": "http://192.168.180.47:8080/discuz/plugin.php?id=bigapp:homeapi&method=setFunc",
+            "getFunc": "http://192.168.180.47:8080/discuz/plugin.php?id=bigapp:homeapi&method=getFunc",
+            "uploadBanner": "http://192.168.180.47:8080/discuz/plugin.php?id=bigapp:uploadpic&key=banner_image_s",
+            "uploadFunc": "http://192.168.180.47:8080/discuz/plugin.php?id=bigapp:uploadpic&key=func_image_s",
+            "imageSize":{
+                "icon_image_s":{
+                    "width":1024,
+                    "height":1024,
+                    "size":1048576
+                },
+                "startup_image_s":{
+                    "width":1242,
+                    "height":2208,
+                    "size":1048576
+                },
+                "banner_image_s":{
+                    "width":750,
+                    "height":342,
+                    "size":1048576
+                },
+                "func_image_s":{
+                    "width":96,
+                    "height":96,
+                    "size":1048576
+                },
+                "func_forum_image_s":{
+                    "width":88,
+                    "height":88,
+                    "size":1048576
+                }
+            }
+        };
+        var pageType = {
+            key : 'uploadBanner',
+            value : 'banner_image_s',
+            imgSize: ['banner_image_s','banner_image_s','banner_image_s']
+        };
+        var mType = {
+            get : 'getBanner',
+            set : 'setBanner'
+        }
+        var picTips = '<div class="tips_item tips_'+pageType.imgSize[0]+'">图片大小最小为'+ v.imageSize[pageType.imgSize[0]].width+'x'+v.imageSize[pageType.imgSize[0]].height+'</div>';
+    </script>
+    <script src="../../js/ajaxfileupload.js" charset="utf-8"></script>
+    <script src="../../js/uploadfile.js" charset="utf-8"></script>
+    <script src="../../js/uz-common.js" charset="utf-8"></script>
+    <script src="../../js/uz-i-custom.js" charset="utf-8"></script>
+</head>
+<body id="uz">
+<div id="container">
+    <table id="setList" class="tb tb2 ">
+        <thead class="table-head">
+        <tr>
+            <th colspan="15" class="partition">Banner设置</th>
+        </tr>
+        <tr class="header">
+            <th></th>
+            <th>链接名称</th>
+            <th>图片</th>
+            <th>链接 URL</th>
+            <th>类别</th>
+            <th>描述信息</th>
+            <th>排序</th>
+            <th>是否显示</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>

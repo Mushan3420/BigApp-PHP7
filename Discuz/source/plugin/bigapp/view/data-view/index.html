@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="src/css/style.css"/>
+    <link rel="stylesheet" href="src/css/uz-style.css"/>
+    <script src="src/js/jquery.js"></script>
+    <script src="src/js/echarts-all.js"></script>
+</head>
+<body id="uz">
+<div id="container">
+    <div class="data-box">
+        <div class="box-title">
+            <h2>应用概要</h2><i class="help"></i>
+        </div>
+        <div class="box-content">
+            <div class="box-group">
+                <div class="box-block">
+                    <h3>累计用户</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips">1213</div>
+                </div>
+                <div class="box-block">
+                    <h3>过去7天活跃用户</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips">-1.8%</div>
+                </div>
+                <div class="box-block">
+                    <h3>过去30天活跃用户</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips"></div>
+                </div>
+                <div class="box-block">
+                    <h3>过去7天平均使用时长</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips"></div>
+                </div>
+                <div class="box-block">
+                    <h3>总错误率</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-box">
+        <div class="box-title">
+            <h2>整体趋势</h2>
+
+            <div class="option-bar">
+                <select name="" id="">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="box-content chart-area">
+            <div class="box-group">
+                <div class="box-block active">
+                    <h3>累计用户</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips">1213</div>
+                </div>
+                <div class="box-block">
+                    <h3>过去7天活跃用户</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips">-1.8%</div>
+                </div>
+                <div class="box-block">
+                    <h3>过去30天活跃用户</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips"></div>
+                </div>
+                <div class="box-block">
+                    <h3>过去7天平均使用时长</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips"></div>
+                </div>
+                <div class="box-block">
+                    <h3>总错误率</h3>
+
+                    <p>2674288</p>
+
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="chart-content">
+
+            </div>
+        </div>
+    </div>
+    <div class="data-box">
+        <div class="box-title">
+            <h2>整体趋势</h2>
+
+            <div class="option-bar">
+                <select name="" id="">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="box-content chart-area">
+            <div class="chart-bar">
+                <ul class="chart-tab">
+                    <li class="active">新增用户</li>
+                    <li>新增用户</li>
+                    <li>新增用户</li>
+                    <li>新增用户</li>
+                    <li>新增用户</li>
+                </ul>
+            </div>
+            <div class="chart-content">
+
+            </div>
+        </div>
+    </div>
+    <div class="data-layout col-2">
+        <div class="data-box col-l">
+            <div class="box-title">
+                <h2>整体趋势</h2>
+
+                <div class="option-bar">
+                </div>
+            </div>
+            <div class="box-content chart-area">
+                <div class="chart-bar">
+                    <ul class="chart-tab">
+                        <li class="active">新增用户</li>
+                        <li>新增用户</li>
+                        <li>新增用户</li>
+                        <li>新增用户</li>
+                        <li>新增用户</li>
+                    </ul>
+                </div>
+                <div class="chart-content">
+
+                </div>
+            </div>
+        </div>
+        <div class="data-box col-r">
+            <div class="box-title">
+                <h2>整体趋势</h2>
+
+                <div class="option-bar">
+                </div>
+            </div>
+            <div class="box-content chart-area">
+                <div class="chart-bar">
+                    <ul class="chart-tab">
+                        <li class="active">新增用户</li>
+                        <li>新增用户</li>
+                        <li>新增用户</li>
+                        <li>新增用户</li>
+                        <li>新增用户</li>
+                    </ul>
+                </div>
+                <div class="chart-content">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    var trend_url = 'http://192.168.180.23:8080/product/ui/http/index.php?module=api&controller=today&method=getTrend&app_key=11111';
+    var total_url = 'http://192.168.180.23:8080/product/ui/http/index.php?module=api&controller=today&method=getTotal&app_key=11111';
+    var data_obj = {};
+    getData(trend_url, 'trend');
+    getData(total_url, 'total');
+    function getData(url, key) {
+
+        $.ajax({
+            type: "get",
+            async: false,
+            url: url,
+            dataType: "jsonp",
+            jsonp: "callback", //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+            jsonpCallback: "handler", //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+            success: function (json) {
+                console.log(json);
+                data_obj[key] = json.data;
+            },
+            error: function () {
+                alert('fail');
+            }
+        })
+    }
+    var url = '';
+</script>
+</body>
+</html>

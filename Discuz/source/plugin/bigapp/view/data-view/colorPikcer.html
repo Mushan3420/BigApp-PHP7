@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Discuz 原有css -->
+    <link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../../css/evol.colorpicker.css"/>
+    <!-- Discuz 原有css -->
+
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/jquery-ui-colorpicker.js"></script>
+</head>
+<body id="uz">
+<div id="container">
+    <input type="text" id="color"/>
+</div>
+<script>
+    console.log(jQuery)
+</script>
+<script src="../../js/evol.colorpicker.js"></script>
+<script>
+    $(function() {
+        $('#color').colorpicker({
+            history:false,
+            strings: "选择主题颜色,推荐主题颜色,Plus de couleurs,Moins de couleurs,Palette,Historique,Pas encore d'historique."
+        });
+    });
+</script>
+</body>
+</html>

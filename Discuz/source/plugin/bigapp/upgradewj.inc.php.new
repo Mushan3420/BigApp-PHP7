@@ -1,0 +1,138 @@
+<?php
+require_once libfile('function/plugin');
+require_once libfile('function/admincp');
+require_once libfile('function/cache');
+require_once dirname(__FILE__) . '/libs/fileutil.php';
+
+//检查是否是管理员，只有管理员才能升级插件
+if(!isset($_G['groupid']) || 1 != $_G['groupid']){
+	showmessage(lang('plugin/bigapp', 'admin_only'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'user is administrator, go on');
+//检查是否支持zip解压
+if(!class_exists('ZipArchive', false)){
+	showmessage(lang('plugin/app', 'zip_class_missing'), '', array(), array('alert' => 'error'));
+}
+//检查是否携带新版本的下载地址，如果没有携带，则报错
+if(!isset($_GET['new_version_url'])){
+	showmessage(lang('plugin/bigapp', 'invalid_upgrade_param'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'new version url is: ' . $_GET['new_version_url']);
+$newUrl = $_GET['new_version_url'];
+//1. 获取本插件的信息
+$sql = 'SELECT pluginid, modules, directory, identifier, version FROM ' . DB::table('common_plugin') . " WHERE identifier = 'bigapp'";
+$plugin = DB::fetch_first($sql);
+if(count($plugin) === 0){
+	showmessage(lang('plugin/bigapp', 'plugin_not_exists'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'get big app info succ, go on');
+$pluginid = $plugin['pluginid'];
+$modules = dunserialize($plugin['modules']);
+$dir = substr($plugin['directory'], 0, -1);
+$installtype = $modules['extra']['installtype'];
+runlog('bigapp', "big app info [ pluginid: $pluginid, dir: $dir, installtype: $installtype ]");
+//2. 随意创建一个目录，判断是否可写
+$tmpDir = DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/done' . rand(1, 10000000000);
+if(false === FileUtil::createDir($tmpDir)){
+	showmessage(lang('plugin/bigapp', 'dest_not_writable'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', "dir is not writable: $tmpDir");
+FileUtil::unlinkDir($tmpDir);
+FileUtil::unlinkFile(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/bigapp.zip');
+//3. 远程抓取代码
+runlog('bigapp', 'try to get zip and save to ' . DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/bigapp.zip');
+$ch = curl_init();
+curl_setopt ($ch, CURLOPT_URL, $newUrl);
+curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5);
+curl_setopt ($ch, CURLOPT_TIMEOUT, 30);
+$ret = curl_exec($ch);
+file_put_contents(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/bigapp.zip', $ret);
+if(!file_exists(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/bigapp.zip')){
+	showmessage(lang('plugin/bigapp', 'download_file_failed'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'try to get zip succ');
+//4. 解压到本地
+$tmp = new ZipArchive();
+$res = $tmp->open(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/bigapp.zip');
+if($res === true){
+	$tmp->extractTo(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/');
+	$tmp->close();
+}else{
+	showmessage(lang('plugin/bigapp', 'invalid_tar_file'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'unzip tar succ');
+//5. 覆盖到正式目录中
+FileUtil::copyDir(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/bigapp', DISCUZ_ROOT.'/source/plugin/bigapp', true);
+if(!file_exists(DISCUZ_ROOT.'/source/plugin/'.$dir . '/upgradewj.inc.php.new')){
+	showmessage(lang('plugin/bigapp', 'cp_file_failed'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'copy files to formal dir succ');
+//6. 读取xml文件
+$importfile = DISCUZ_ROOT.'./source/plugin/'.$dir.'/discuz_plugin_'.$dir.($installtype ? '_'.$installtype : '').'.xml';
+if(!file_exists($importfile)) {
+	showmessage(lang('plugin/bigapp', 'invalid_tar_file'), '', array(), array('alert' => 'error'));
+}
+runlog('bigapp', 'read xml file succ: ' . $importfile);
+$importtxt = @implode('', file($importfile));
+//7. 读取已安装的信息
+$pluginarray = getimportdata('Discuz! Plugin');
+if(!ispluginkey($pluginarray['plugin']['identifier']) || $pluginarray['plugin']['identifier'] != $plugin['identifier']) {
+	showmessage(lang('plugin/bigapp', 'cp_file_failed'), '', array(), array('alert' => 'error'));	
+}
+runlog('bigapp', 'read installed info succ');
+if(is_array($pluginarray['vars'])) {
+	foreach($pluginarray['vars'] as $config) {
+		if(!ispluginkey($config['variable'])) {
+			showmessage(lang('plugin/bigapp', 'invalid_xml_file'), '', array(), array('alert' => 'error'));
+		}
+	}
+}
+runlog('bigapp', 'read installed xml info succ');
+//8.执行checkfile文件
+if(!empty($pluginarray['checkfile']) && preg_match('/^[\w\.]+$/', $pluginarray['checkfile'])) {
+	if(!empty($pluginarray['language'])) {
+		$installlang[$pluginarray['plugin']['identifier']] = $pluginarray['language']['installlang'];
+	}
+	$filename = DISCUZ_ROOT.'./source/plugin/'.$plugin['directory'].$pluginarray['checkfile'];
+	if(file_exists($filename)) {
+		loadcache('pluginlanguage_install');
+		$installlang = $_G['cache']['pluginlanguage_install'][$plugin['identifier']];
+		@include $filename;
+	}
+}
+runlog('bigapp', 'exec check file succ');
+//9. 执行插件元数据、插件语言数据的安装
+pluginupgrade($pluginarray, $installtype);
+runlog('bigapp', 'do metadata and language installation succ');
+//10.执行update脚本
+if(!empty($plugin['directory']) && !empty($pluginarray['upgradefile']) && preg_match('/^[\w\.]+$/', $pluginarray['upgradefile'])) {
+	$filename = $pluginarray['upgradefile'];
+	$toversion = $pluginarray['plugin']['version'];
+	loadcache('pluginlanguage_install');
+	$installlang = $_G['cache']['pluginlanguage_install'][$plugin['identifier']];
+	if(!empty($filename) && preg_match('/^[\w\.]+$/', $filename)) {
+		$filename = DISCUZ_ROOT.'./source/plugin/'.$dir.'/'.$filename;
+		if(file_exists($filename)) {
+			runlog('bigapp', 'run update file: ' . $filename);
+			@include_once $filename;
+		} else {
+			$finish = TRUE;
+		}
+	}else{
+		$finish = TRUE;
+	}
+}
+runlog('bigapp', 'exec update file succ');
+//11. 清除多余文件
+if($finish) {
+	require_once libfile('function/cache');
+	updatecache('setting');
+	//updatemenu('plugin');
+	runlog('bigapp', 'remove redundant files');
+	FileUtil::moveFile(DISCUZ_ROOT.'/source/plugin/'.$dir . '/upgradewj.inc.php.new', DISCUZ_ROOT.'/source/plugin/'.$dir . '/upgradewj.inc.php', true);
+}
+FileUtil::unlinkDir(DISCUZ_ROOT.'/source/plugin/'.$dir.'/tmp/');
+runlog('bigapp', 'upgrade succ, congradulations');
+showmessage(lang('plugin/bigapp', 'bigapp_upgrade_succ'), '', array(), array('alert' => 'info'));
+?>

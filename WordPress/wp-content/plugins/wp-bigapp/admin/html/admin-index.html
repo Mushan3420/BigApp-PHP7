@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../src/admin.css"/>
+    <link rel="stylesheet" href="../css/uu-style.css"/>
+    <script src="../src/script.js"></script>
+    <script src="../js/qr.js"></script>
+    <script src="../js/uz-common.js"></script>
+</head>
+<body class="wp-admin wp-core-ui js  nav-menus-php auto-fold admin-bar branch-4-2 version-4-2-2 admin-color-fresh locale-zh-cn customize-support svg menu-max-depth-0">
+<div class="wrap" id="wpbody-content">
+    <div id="uz">
+        <h2>插件名称</h2>
+        <ul class="subsubsub">
+            <li>插件版本号：V<span class="tpl-version"></span> |</li>
+            <li>最后更新日期：<span class="tpl-updatetime"></span> | </li>
+            <li><a href="javascript:;">前往站长中心</a> | </li>
+            <li><a href="javascript:;">退出</a></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="uz-notice">
+            <div class="title">公告</div>
+            <p class="tpl-notice"></p>
+
+            <p>
+                如有疑问，可前往 &gt;&gt; <a href="#"><strong>帮助中心</strong></a>
+            </p>
+        </div>
+        <div class="app-base-info android">
+            <div class="pic-view">
+                <div class="pic">
+                    <img class="tpl-app-logo" src="" alt=""/>
+                </div>
+                <h4 class="tpl-app-name"></h4>
+            </div>
+            <div class="pic-view">
+                <div class="pic qrcode"></div>
+                <h4>二维码下载</h4>
+            </div>
+        </div>
+        <div class="app-base-info ios">
+            <div class="pic-view">
+                <div class="pic">
+                    <img class="tpl-app-logo" src="" alt=""/>
+                </div>
+                <h4 class="tpl-app-name"></h4>
+            </div>
+            <div class="pic-view">
+                <div class="pic qrcode"></div>
+                <h4>二维码下载</h4>
+            </div>
+        </div>
+        <div class="edit-form">
+            <table class="form-table">
+                <tbody><tr>
+                    <th scope="row"><label for="appKey">APP_KEY</label></th>
+                    <td><input name="appKey" type="text" id="appKey" value="" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="appSecret">APP_SECRET</label></th>
+                    <td><input name="appSecret" type="text" id="appSecret" value="" class="regular-text"></td>
+                </tr>
+                </tbody></table>
+            <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
+        </div>
+        <table class="wp-list-table widefat plugins">
+            <thead>
+            <tr>
+                <th scope="col" id="name" class="manage-column column-name" style="">功能</th>
+                <th scope="col" id="description" class="manage-column column-description" style="">功能描述</th>
+            </tr>
+            </thead>
+
+            <tbody id="the-list">
+            <tr class="active" id="menu_info">
+                <td class="plugin-title"><strong>菜单管理</strong>
+                    <div class="row-actions visible">
+                        <a class="tpl-link" href="javascript:;">设置</a> |
+                        <a class="tpl-switch" href="javascript:;" title="停用该插件">停用</a>
+                    </div>
+                </td>
+                <td class="column-description">
+                    <img src="http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg" alt=""/>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+<script>
+    //    demo json
+    var v = {
+        "data": {
+            verify_info:{
+                ak : "72793a058835a9fdd874bd5114572d10",
+                sk : "b71cf132685a40d97df51095dd1c852b"
+            },
+            "common_info": {
+                "notice": "\u6211\u4eec\u662f\u4f60\u7684\u540e\u53f0"
+            },
+            "plugin_info": {
+                "name": "bigapp",
+                "version": "1.0.0",
+                "updatetime": "",
+                "app_infos": [
+                    {
+                        "name": "test",
+                        "logo": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                        "url": "http:\/\/",
+                        "dcode_url": "http:\/\/",
+                        "type": "ios"
+                    }
+                ]
+            },
+            "menu_info": {
+                "menu_list": [
+                    {
+                        "name": "qiongye",
+                        "ID": 2,
+                        "type": "category",
+                        "img_url": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                        "link": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                        "rank": 9,
+                        "show": true
+                    },
+                    {
+                        "name": "qiong",
+                        "ID": 1,
+                        "type": "category",
+                        "img_url": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                        "link": "http://meinvbang.club/data/attachment/forum/201507/19/171152i1wa114mbct91jjv.jpg",
+                        "rank": 10,
+                        "show": true
+                    }
+                ],
+                "menu_switch": '0',
+                "opt_url": "http:\/\/192.168.180.50:8089\/wordpress\/wp-admin\/plugins.php?page=bigapp_admin&action=menu"
+            }
+        },
+        "ajax_url": {
+            "opt_menu": "http:\/\/192.168.180.50:8089\/wordpress\/?yz_app=1&api_route=admin_api&action=update_menu_switch",
+            "opt_verify": "http://192.168.180.50:8089/wordpress/?yz_app=1&api_route=admin_api&action=update_verify_info"
+        }
+    }
+    jQuery(function(){
+        uz.drawIndex(v.data, v.ajax_url);
+    })
+</script>
+</body>
+</html>

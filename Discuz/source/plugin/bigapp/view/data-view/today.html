@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Discuz 原有css -->
+    <link rel="stylesheet" href="src/css/style.css"/>
+    <!-- Discuz 原有css -->
+
+    <link rel="stylesheet" href="../../css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-ui.theme.min.css"/>
+    <link rel="stylesheet" href="../../css/uz-style.css"/>
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/jquery-ui.js"></script>
+    <script src="../../js/echarts-all.js"></script>
+    <script src="../../js/uz-data.js"></script>
+</head>
+<body id="uz">
+<div id="container">
+    <div class="chart-bar">
+        <ul class="chart-tab" id="platTab">
+            <li data-value="0">安卓 App</li>
+            <li data-value="1">IOS App</li>
+            <li data-value="2">总体</li>
+        </ul>
+    </div>
+    <div class="data-box">
+        <div class="box-title">
+            <h2>截至到今日0点为止的安装总数、倒数7天的平均日活</h2>
+        </div>
+        <div class="box-content">
+            <div class="box-group getData"id="days_total">
+                <div class="box-block total_install">
+                    <h3>累计安装</h3>
+                    <p></p>
+                    <!--<div class="tips">1213</div>-->
+                </div>
+                <div class="box-block dau">
+                    <h3>活跃用户</h3>
+                    <p></p>
+                    <!--<div class="tips">-1.8%</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-box">
+        <div class="box-title">
+            <h2>昨天的全部指标</h2>
+        </div>
+        <div class="box-content">
+            <div class="box-group getData"id="yesterday_total">
+                <div class="box-block total_install">
+                    <h3>累计安装</h3>
+                    <p></p>
+                    <!--<div class="tips">1213</div>-->
+                </div>
+                <div class="box-block dau">
+                    <h3>昨天活跃的用户</h3>
+                    <p></p>
+                    <!--<div class="tips">1213</div>-->
+                </div>
+                <div class="box-block startup_times">
+                    <h3>启动次数</h3>
+                    <p></p>
+                    <!--<div class="tips">-1.8%</div>-->
+                </div>
+                <div class="box-block duration">
+                    <h3>duration</h3>
+                    <p></p>
+                    <!--<div class="tips"></div>-->
+                </div>
+                <div class="box-block duration_day">
+                    <h3>duration_day</h3>
+                    <p></p>
+                    <!--<div class="tips"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-box getData" id="days_trend">
+        <div class="box-title">
+            <h2>整体趋势</h2>
+            <div class="option-bar">
+                <label class="barDate">
+                    <span>选择时间：</span>
+                    <input type="text" class="date-value" readonly/>
+                    <div class="date-pop">
+                        <div class="btn-bar">
+                            <button class="date-submit" data-value="60">过去60天</button>
+                            <button class="date-submit" data-value="30">过去30天</button>
+                            <button class="date-submit" data-value="7">过去7天</button>
+                            <button class="date-submit fr">确定</button>
+                        </div>
+                        <div class="date-area" id="from"></div>
+                        <div class="date-area" id="to"></div>
+                    </div>
+                </label>
+                <!--<label><span>起始：</span><input type="text" id="from" name="from"></label>-->
+
+                <!--<label><span>结束：</span><input type="text" id="to" name="to"></label>-->
+
+            </div>
+        </div>
+        <div class="box-content chart-area">
+            <div class="chart-bar">
+                <ul class="chart-tab">
+                    <li data-value="total_install">total_install</li>
+                    <li data-value="dau">dau</li>
+                    <li data-value="startup_times">startup_times</li>
+                    <li data-value="duration">duration</li>
+                </ul>
+            </div>
+            <div class="chart-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function($){
+        $(function() {
+            $( "#from" ).datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function( selectedDate ) {
+                    $( "#to" ).datepicker( "option", "minDate", selectedDate );
+                }
+            });
+            $( "#from" ).datepicker('setDate','2015/6/7');
+            $( "#to" ).datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function( selectedDate ) {
+                    $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+                }
+            });
+        });
+    })(jq);
+</script>
+</body>
+</html>
