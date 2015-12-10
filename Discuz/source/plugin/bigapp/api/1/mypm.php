@@ -55,7 +55,7 @@ class BigAppAPI {
 			
 		foreach ($GLOBALS['list'] as &$value){
 			if(isset($value['message'])){
-				$message = preg_replace ($search, $replace, $value['message']);	
+				$message = preg_replace_callback($search, $replace, $value['message']);	
 				if(function_exists('iconv')){
 					$message = iconv(CHARSET, 'UTF-8//ignore', $message);
 				}else{
