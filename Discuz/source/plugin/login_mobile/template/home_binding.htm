@@ -1,0 +1,192 @@
+<script src="{$plugin_path}/view/js/jquery.js"></script>
+
+<script>
+  var leftseconds = 0;
+
+  function get_text_value(domid)
+  {
+      var dom = document.getElementById(domid);
+      var val = dom.value.trim();
+      dom.value=val;
+      if(val=="") {
+          dom.focus();
+          throw new Error(domid+" is not set");
+      }
+      return val;
+  }
+
+  function get_phone(domid) {
+      var val = get_text_value(domid);
+	  if(!(/^1[1|2|3|4|5|6|7|8|9][0-9]\d{8}$/.test(val))){ 
+		  alert("{$lang['label_input_phone']}");
+          document.getElementById(domid).focus();
+          throw new Error("{$lang['label_input_phone']}");
+	  } 
+      return val;
+  }
+
+  function disable_smsbtn() {
+      var dom = document.getElementById('smsbtn');
+      dom.disabled=true;
+      dom.innerHTML = leftseconds+" {$lang['label_resend_sms']}";
+      --leftseconds;
+      if (leftseconds<=0) {
+          dom.disabled=false;
+          dom.innerHTML = "{$lang['label_smscode_send']}";
+          return 
+      }
+      setTimeout(disable_smsbtn, 1000);
+  }
+
+  function new_seccode() {
+      var url = "{$seccode_url}&tm="+new Date().getTime();
+      document.getElementById("seccode_img").src=url;
+  }
+
+  jQuery.noConflict();
+  jQuery(document).ready(function($) {
+      new_seccode();      
+
+{if $tag=='bind'}
+      $("#subbtn").click(function(){
+	      var params = {
+              phone: get_phone('phone'),
+			  pcode: get_text_value('smscode')
+		  };
+          $.ajax({
+              type: "post",
+              async: false,
+              url: "{$ajax_api}&module=bind&action=bind",
+			  data: params,
+			  dataType: "json",
+			  complete: function(res) {
+                  //alert("complete");
+              },
+              success: function (res) {
+                  if (res.retcode==0) {
+                      alert("{$lang['label_bind_success']}");
+                      window.location.reload();
+                  } else {
+                      alert(res.retmsg);
+                  }
+              },
+              error: function (data) {
+			      alert("error: "+data);
+              }
+          });
+      });
+
+      $("#smsbtn").click(function(){
+	      var params = {
+              phone: get_phone('phone'),
+			  seccode: get_text_value('seccode')
+		  };
+		  console.log(params);
+		  leftseconds = 60;
+		  disable_smsbtn();
+		  $.ajax({
+              type: "post",
+			  async: false,
+			  url: "{$ajax_api}&module=smscode&regist=1",
+			  data: params,
+			  dataType: "json",
+			  complete: function(res) {
+			  },
+              success: function (res) {
+			      if(res.retcode!=0) {
+			          alert(res.retmsg);
+					  leftseconds = 0;
+				  }
+			  },
+			  error: function (data) {
+			  alert("error: "+data);
+			  leftseconds = 0;
+			  }
+          });
+      });
+{else}
+      $("#subbtn").click(function(){
+          var params = {
+              seccode: get_text_value('seccode')
+          };
+          console.log(params);
+          $.ajax({
+              type: "post",
+              async: false,
+              url: "{$ajax_api}&module=bind&action=unbind",
+              data: params,
+              dataType: "json",
+              complete: function(res) {
+                  //alert("complete");
+              },
+              success: function (res) {
+                  if (res.retcode==0) {
+                      alert("{$lang['label_unbind_success']}");
+                      window.location.reload();
+                  } else {
+                      alert(res.retmsg);
+                  }
+              },
+              error: function (data) {
+			      alert("error: "+data);
+              }
+          });
+      });
+{/if}
+  });
+</script>
+
+
+<h1>{$page_title}</h1>
+<hr style='margin:10px 0;padding:0;border-top:solid 1px #ccc;border-bottom:none;'>
+
+{if $tag=='bind'}
+  <table cellspacing="0" cellpadding="0" class="tfm">
+	<tr>
+	  <th><span class="rq" title="{$lang['label_bt']}">*</span>{$lang["label_bind_phone"]}</th>
+	  <td colspan='2'>
+	    <input type="text" name="phone" id="phone" class="px">
+	  </td>
+	</tr>
+	<tr>
+      <th><span class="rq" title="{$lang['label_bt']}">*</span>{$lang["label_seccode"]}</th>
+      <td width='120'>
+        <input name="seccode" id="seccode" type="text" style="ime-mode:disabled;width:100px" class="txt px vm">
+      </td>
+      <td>
+        <a href="javascript:new_seccode();" class="xi2"><img id='seccode_img' src="" style='width:120px;height:30px;'></a>
+      </td>
+    </tr>
+	<tr>
+      <th><span class="rq" title="{$lang['label_bt']}">*</span>{$lang["label_smscode"]}</th>
+      <td>
+        <input name="smscode" id="smscode" type="text" style="ime-mode:disabled;width:100px" class="txt px vm">
+      </td>
+      <td>
+        <button id='smsbtn'>{$lang["label_smscode_send"]}</button>
+      </td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td><button id='subbtn' class="pn pnc"><strong>{$lang["label_btn_bind"]}</strong></button></td>
+    </tr>
+  </table>
+{else}
+  <p>{$lang["label_hasbind"]}<b>{$phone}</b></p>
+  <table cellspacing="0" cellpadding="0" class="tfm">
+    <tr>
+	  <th><span class="rq" title="{$lang['label_bt']}">*</span>{$lang["label_seccode"]}</th>
+	  <td width='300' valign='middle'>
+        <input type="text" id="seccode" class="px">
+      </td>
+	  <td>
+        <a href="javascript:new_seccode();" class="xi2"><img id='seccode_img' src="" style='width:120px;height:30px;'></a>
+      </td>
+	</tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td colspan='2'><button id='subbtn' class="pn pnc"><strong>{$lang["label_btn_unbind"]}</strong></button></td>
+    </tr>
+  </table>
+{/if}
+

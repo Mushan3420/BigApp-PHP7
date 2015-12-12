@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>手机注册</title>
+  <link rel="stylesheet" href="libs/amazeui/2.4.2/amazeui.min.css">
+  <link rel="stylesheet" href="src-1449885118/site/main.css"/>
+  <script src="libs/requirejs/2.1.9/require.js"></script>
+  <script src="libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="api.js"></script>
+  <script>
+    require.config({
+        baseUrl: 'src-1449885118/',
+        packages: [
+            {name:'jquery',  location:'../libs/jquery/1.11.2', main:'jquery.min'},
+			{name:'mwt',     location:'../libs/mwt/2.5.0',     main:'mwt'}
+        ]
+    });
+    require(['regist'], function (regist) {
+        regist.init();
+    });
+  </script>
+</head>
+<body id='frame-body'>
+</body>
+</html>
