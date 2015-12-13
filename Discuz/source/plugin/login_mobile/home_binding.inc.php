@@ -28,7 +28,7 @@ $lang = array (
     'label_unbind_success' => '已解除手机绑定',
 );
 foreach ($lang as $k=>&$v) {
-    $v = iconv("UTF-8",CHARSET."//ignore",$v);
+    $v = diconv($v, "UTF-8", CHARSET);
 }
 
 
