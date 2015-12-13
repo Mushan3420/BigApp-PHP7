@@ -40,6 +40,7 @@ else {
 	$tag = "bind";
 	$page_title = $lang["bind_phone"];
 }
+extract($lang);
 
 $plugin_path = DzEnv::getPluginPath();
 $seccode_url = $plugin_path."/index.php?version=4&module=seccode";
