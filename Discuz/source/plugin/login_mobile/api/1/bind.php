@@ -32,10 +32,12 @@ switch ($action) {
         break;
 	case 'unbind':
         // 校验验证码
-		require_once LIB_PATH."/seccode.php";
-		if (!DzSecCode::check()) {
-			DzEnv::error_result("error_seccode");
-		}
+        if (isset($_REQUEST["seccode"])) {
+		    require_once LIB_PATH."/seccode.php";
+		    if (!DzSecCode::check()) {
+			    DzEnv::error_result("error_seccode");
+		    }
+        }
         // 解除绑定
 		$phone = C::t("#login_mobile#mobile_login_connection")->getPhone($username);
 		if ($phone!==false) {

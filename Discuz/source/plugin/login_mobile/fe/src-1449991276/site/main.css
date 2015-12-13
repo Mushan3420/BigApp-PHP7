@@ -1,0 +1,9 @@
+body {margin:0;padding:0;background-image:url('bg.png');}
+/* 登录注册form */
+.jay-form {}
+.jay-form .am-input-group {margin-bottom:10px;}
+.jay-form button {margin-top:15px;}
+
+.tablay {width:100%;border-collapse:collapse;margin-bottom:10px}
+.tablay .title {font-size:16px;font-weight:bold;font-family:'微软雅黑','Helvetica Neue',Helvetica,Arial,sans-serif;color:#666;letter-spacing:1px;background:url('back.png') no-repeat;padding-left:30px;}
+.tablay a {font-size:14px;color:darkgreen;}
