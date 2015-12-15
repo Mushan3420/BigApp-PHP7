@@ -15,7 +15,7 @@ $result = array (
     "phone" => "",
 );
 
-$phone = C::t("#login_mobile#mobile_login_connection")->getPhone($result["username"]);
+$phone = C::t("#login_mobile#mobile_login_connection")->getPhone($_G["username"]);
 if ($phone !== false) $result["phone"] = $phone;
 
 DzEnv::result($result);
