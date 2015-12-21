@@ -1,1 +1,0 @@
-var ajaxapi='http://bbs.euyyue.com/source/plugin/login_mobile/index.php';
