@@ -33,7 +33,7 @@ if(!is_array($arrConf) || !isset($arrConf['allowmobile'])){
 }
 $arrConf['allowmobile'] = 1;
 $sValue = serialize($arrConf);
-// $sValue = $this->link->escape_string($sValue);
+$sValue = $this->link->escape_string($sValue);
 $sql = 'UPDATE ' . DB::table('common_setting') . " SET svalue = '$sValue' WHERE skey = 'mobile'";
 runquery($sql);
 build_cache_setting();
