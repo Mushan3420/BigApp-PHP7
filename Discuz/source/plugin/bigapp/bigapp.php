@@ -11,6 +11,8 @@ define('IN_MOBILE_API', 1);
 define('IN_MOBILE', 1);
 define ('IN_BIGAPP', 1);
 chdir('../../../');
+require_once dirname(__FILE__).'/waf.php';
+require_once dirname(__FILE__).'/addslashes.php';
 
 if(!isset($_config)){
 	@require_once 'config/config_global.php';

@@ -9,7 +9,8 @@
 if(!defined('IN_DISCUZ') && !defined('IN_BIGAPP')) {
 	exit('Access Denied');
 }
-
+require_once dirname(__FILE__).'/waf.php';
+require_once dirname(__FILE__).'/addslashes.php';
 require_once dirname(__FILE__) . '/conf/conf.inc.php';
 require_once dirname(__FILE__) . '/apiutils.inc.php';
 require_once dirname(__FILE__) . '/bigappjson.class.php';
