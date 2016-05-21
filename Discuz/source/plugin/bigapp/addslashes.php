@@ -13,12 +13,13 @@ foreach($_POST as $k=>$v){
     $_POST[$k] =addslashes($v);
 }
  */
+error_reporting(0);
 if(substr_count($_GET['url'],'../')){
     header($_SERVER['SERVER_PROTOCOL']." 403 Forbidden");
     exit();
 }
 if(!substr_count($_GET['url'],$_SERVER['SERVER_NAME'])){
-    if(substr_count($_GET['url'],'http://')){
+    if(substr_count($_GET['url'],'http://') >= 2){
         header($_SERVER['SERVER_PROTOCOL']." 403 Forbidden");
         exit();
     }
