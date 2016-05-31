@@ -9,7 +9,6 @@
 if(!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
-require_once dirname(__FILE__).'/waf.php';
 require_once dirname(__FILE__).'/addslashes.php';
 require_once dirname(__FILE__) . '/conf/conf.inc.php';
 

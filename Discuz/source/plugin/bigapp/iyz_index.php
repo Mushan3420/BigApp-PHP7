@@ -5,7 +5,6 @@
  *
  *      $Id: index.php 33969 2013-09-10 08:32:14Z nemohou $
  */
-require_once dirname(__FILE__).'/waf.php';
 require_once dirname(__FILE__).'/addslashes.php';
 
 $_GET['charset'] = 'UTF-8';
