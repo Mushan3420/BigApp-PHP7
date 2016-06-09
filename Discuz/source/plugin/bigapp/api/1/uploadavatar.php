@@ -11,14 +11,16 @@ if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');
 }
 
-class BigAppAPI {
+class BigAppAPI 
+{
 
-	var $tmpavatar;
-	var $tmpavatarbig;
-	var $tmpavatarmiddle;
-	var $tmpavatarsmall;
+	public static $tmpavatar;
+	public static $tmpavatarbig;
+	public static $tmpavatarmiddle;
+	public static $tmpavatarsmall;
 
-	function common() {
+	public static function common() 
+	{
 		global $_G;
 		$avatarpath = $_G['setting']['attachdir'];
 		$filetype = null;
@@ -36,27 +38,28 @@ class BigAppAPI {
 		$tmpavatarbig = './temp/upload'.$_G['uid'].'big'.$filetype;
 		$tmpavatarmiddle = './temp/upload'.$_G['uid'].'middle'.$filetype;
 		$tmpavatarsmall = './temp/upload'.$_G['uid'].'small'.$filetype;
-		$this->tmpavatar = $tmpavatar;
-		$this->tmpavatarbig = $avatarpath.$tmpavatarbig;
-		$this->tmpavatarmiddle = $avatarpath.$tmpavatarmiddle;
-		$this->tmpavatarsmall = $avatarpath.$tmpavatarsmall;
+		self::$tmpavatar = $tmpavatar;
+		self::$tmpavatarbig = $avatarpath.$tmpavatarbig;
+		self::$tmpavatarmiddle = $avatarpath.$tmpavatarmiddle;
+		self::$tmpavatarsmall = $avatarpath.$tmpavatarsmall;
 	}
 
-	function output() {
+	public static function output() 
+	{
 		global $_G;
 		if(!empty($_G['uid'])) {
-			if($this->tmpavatarbig && $this->tmpavatarmiddle && $this->tmpavatarsmall) {
-				$avatar1 = self::byte2hex(file_get_contents($this->tmpavatarbig));
-				$avatar2 = self::byte2hex(file_get_contents($this->tmpavatarmiddle));
-				$avatar3 = self::byte2hex(file_get_contents($this->tmpavatarsmall));
+			if(self::$tmpavatarbig && self::$tmpavatarmiddle && self::$tmpavatarsmall) {
+				$avatar1 = self::byte2hex(file_get_contents(self::$tmpavatarbig));
+				$avatar2 = self::byte2hex(file_get_contents(self::$tmpavatarmiddle));
+				$avatar3 = self::byte2hex(file_get_contents(self::$tmpavatarsmall));
 
 				$extra = '&avatar1='.$avatar1.'&avatar2='.$avatar2.'&avatar3='.$avatar3;
 				$result = self::uc_api_post_ex('user', 'rectavatar', array('uid' => $_G['uid']), $extra);
 
-				@unlink($this->tmpavatar);
-				@unlink($this->tmpavatarbig);
-				@unlink($this->tmpavatarmiddle);
-				@unlink($this->tmpavatarsmall);
+				@unlink(self::$tmpavatar);
+				@unlink(self::$tmpavatarbig);
+				@unlink(self::$tmpavatarmiddle);
+				@unlink(self::$tmpavatarsmall);
 
 				if($result == '<?xml version="1.0" ?><root><face success="1"/></root>') {
 					$variable = array(
@@ -79,7 +82,8 @@ class BigAppAPI {
 		}
 	}
 
-	function byte2hex($string) {
+	public static function byte2hex($string) 
+	{
 		$buffer = '';
 		$value = unpack('H*', $string);
 		$value = str_split($value[1], 2);
@@ -91,7 +95,8 @@ class BigAppAPI {
 		return $b;
 	}
 
-	function uc_api_post_ex($module, $action, $arg = array(), $extra = '') {
+	public static function uc_api_post_ex($module, $action, $arg = array(), $extra = '') 
+	{
 		$s = $sep = '';
 		foreach($arg as $k => $v) {
 			$k = urlencode($k);
@@ -112,7 +117,8 @@ class BigAppAPI {
 		return uc_fopen2(UC_API.'/index.php', 500000, $postdata, '', TRUE, UC_IP, 20);
 	}
 
-	function error($errstr) {
+	function error($errstr) 
+	{
 		$variable = array(
 			'uploadavatar' => $errstr,
 		);
