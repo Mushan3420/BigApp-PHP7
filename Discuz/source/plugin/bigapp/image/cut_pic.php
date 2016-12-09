@@ -150,8 +150,10 @@ function isValidExt($url)
 
 function redirect($url)
 {
-	header('HTTP/1.1 301 Moved Permanently');//发出301头部
-	header('Location:'.$url);
+	/*header('HTTP/1.1 301 Moved Permanently');//发出301头部
+	header('Location:'.$url);*/
+	//修改BUG，解决跨站漏洞，发现地址不合法，给出提示
+    echo '<script>alert("图片格式不正确,请上传jpg/jpeg/png格式的图片!");</script>';
 	die(0);
 }
 
